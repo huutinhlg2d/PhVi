@@ -13,19 +13,6 @@ module.exports = {
   plugins: ['react-refresh', 'simple-import-sort', 'prettier', 'react', 'react-hooks'],
   rules: {
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
-    '@nx/enforce-module-boundaries': [
-      'error',
-      {
-        enforceBuildableLibDependency: true,
-        allow: [],
-        depConstraints: [
-          {
-            sourceTag: '*',
-            onlyDependOnLibsWithTags: ['*'],
-          },
-        ],
-      },
-    ],
     'arrow-spacing': ['warn', { before: true, after: true }],
     'comma-dangle': ['error', 'always-multiline'],
     'comma-spacing': 'error',
@@ -82,6 +69,11 @@ module.exports = {
         reservedFirst: true,
       },
     ],
+  },
+  settings: {
+    react: {
+      version: 'detect',
+    },
   },
 };
 
