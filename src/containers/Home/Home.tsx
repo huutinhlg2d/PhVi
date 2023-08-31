@@ -9,13 +9,19 @@ export function Home() {
 }
 
 const HomeRoot = styled.div`
-  padding-top: var(--header-height);
-  height: 1024px;
-  background-color: #f1f3ff;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  box-sizing: border-box;
+  background-color: #0026ff8b;
   position: relative;
+  width: 100%;
+  min-height: 1024px;
+  height: 100%;
 `;
 
 const HomeContainer = styled.main`
-  height: 1024px;
+  background-color: #f1f3ff;
   width: 1440px;
+  height: 1024px;
 `;
