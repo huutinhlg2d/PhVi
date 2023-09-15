@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-import { Header } from '../Header';
+import { Header } from '../../Header';
 
 export function ContentLayout() {
   const [showHeader, setShowHeader] = useState<boolean>();

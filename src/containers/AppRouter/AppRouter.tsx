@@ -1,9 +1,8 @@
 import { BrowserRouter as Router, Outlet, Route, Routes } from 'react-router-dom';
 
-import { ContentLayout } from '../../components/Layout';
-import { ShapeMovingLayout } from '../../components/Layout/ShapeMovingLayout';
-import { Home } from '..';
-import { ScrollAnimation } from '../Dev/ScrollAnimation';
+import { ContentLayout, ShapeMovingLayout } from '@/components/Layout';
+
+import { Home, ScrollAnimation } from '..';
 
 export function AppRouter() {
   return (

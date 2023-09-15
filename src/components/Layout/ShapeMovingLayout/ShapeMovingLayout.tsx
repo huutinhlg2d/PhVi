@@ -9,11 +9,13 @@ import hemisphereShape from '@/assets/shiny-shapes/9.png';
 import hexagonShape from '@/assets/shiny-shapes/11.png';
 import { FloatingTestButton } from '@/common';
 
+import { layerStyles, ShapeMovingLayoutComponentProps } from './ShapeMovingLayoutItems';
+
 export function ShapeMovingLayout() {
   const [state, setState] = useState(true);
   const [isActivated, setActivated] = useState(false);
 
-  const commonTransition: Transition = { duration: 1, repeatType: 'loop', ease: 'linear' }
+  const commonTransition: Transition = { duration: 1, repeatType: 'loop', ease: 'linear' };
 
   return (
     <ShapeMovingLayoutRoot>
@@ -65,17 +67,9 @@ export function ShapeMovingLayout() {
   );
 }
 
-type ShapeMovingLayoutComponentProps = {
-  $layer?: number
-}
-
-const layerStyles = css<Pick<ShapeMovingLayoutComponentProps, '$layer'>>`
-  z-index: ${({ $layer }) => ($layer! - 1) * 100};
-`
-
 const ContentContainer = styled.main<ShapeMovingLayoutComponentProps>`
   ${layerStyles}
-`
+`;
 
 const Image = styled(motion.img) <ShapeMovingLayoutComponentProps>`
   ${layerStyles}
@@ -83,7 +77,7 @@ const Image = styled(motion.img) <ShapeMovingLayoutComponentProps>`
   background-color: #ffff007a;
 `;
 
-Image.defaultProps = { $layer: 1 }
+Image.defaultProps = { $layer: 1 };
 
 const Hexagon = styled(Image).attrs({ src: hexagonShape })`
   top: 187px;
@@ -98,9 +92,9 @@ const Circle = styled(Image).attrs({ src: circleShape })`
   aspect-ratio: 1/1;
 `;
 
-const Hemisphere = styled(Image).attrs({ src: hemisphereShape })``
+const Hemisphere = styled(Image).attrs({ src: hemisphereShape })``;
 
-const Cube = styled(Image).attrs({ src: cubeShape })``
+const Cube = styled(Image).attrs({ src: cubeShape })``;
 
 const ShapeMovingLayoutRoot = styled.div`
   --shape-moving-container-index: 200;
