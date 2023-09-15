@@ -12,20 +12,20 @@ export function ContentLayout() {
   const [showHeader, setShowHeader] = useState<boolean>();
 
   return (
-    <ScrollBar
-      defer
-      element="div"
-      events={{
-        scroll: (instance, event) => {
-          const scrollTop = (event.target as HTMLDivElement).scrollTop;
+    <LayoutRoot>
+      <ScrollBar
+        defer
+        element="div"
+        events={{
+          scroll: (instance, event) => {
+            const scrollTop = (event.target as HTMLDivElement).scrollTop;
 
-          setShowHeader(scrollTop <= 300);
-        },
-      }}
-      options={{ scrollbars: { autoHide: 'scroll' } }}
-      style={{ height: '100%', width: '100%', backgroundColor: 'red' }}
-    >
-      <LayoutRoot>
+            setShowHeader(scrollTop <= 300);
+          },
+        }}
+        options={{ scrollbars: { autoHide: 'scroll' } }}
+        style={{ height: '100%', width: '100%', backgroundColor: 'black' }}
+      >
         <AnimatePresence>
           {showHeader !== false && (
             <Header
@@ -36,8 +36,8 @@ export function ContentLayout() {
           )}
         </AnimatePresence>
         <Outlet />
-      </LayoutRoot>
-    </ScrollBar>
+      </ScrollBar>
+    </LayoutRoot>
   );
 }
 
@@ -50,6 +50,7 @@ const LayoutRoot = styled.div`
   ${headerVariables}
   height: 100vh;
   width: 100%;
+  overflow: hidden;
 `;
 
 const ScrollBar = styled(OverlayScrollbarsComponent)`

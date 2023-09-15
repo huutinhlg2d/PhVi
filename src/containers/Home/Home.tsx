@@ -18,6 +18,7 @@ const HomeRoot = styled.div`
   width: 100%;
   min-height: 1024px;
   height: 100%;
+  overflow: hidden;
 `;
 
 const HomeContainer = styled.main`

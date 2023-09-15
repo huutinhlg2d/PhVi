@@ -10,4 +10,5 @@ const FloatingButton = styled.button`
   top: 15px;
   left: 15px;
   z-index: 9999;
+  background-color: white;
 `;
