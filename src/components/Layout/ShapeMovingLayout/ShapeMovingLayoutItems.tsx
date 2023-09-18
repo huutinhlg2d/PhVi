@@ -5,5 +5,5 @@ export type ShapeMovingLayoutComponentProps = {
 };
 
 export const layerStyles = css<Pick<ShapeMovingLayoutComponentProps, '$layer'>>`
-  z-index: ${({ $layer }) => ($layer! - 1) * 100};
+  z-index: ${({ $layer }) => ($layer ?? 1 - 1) * 100};
 `;
