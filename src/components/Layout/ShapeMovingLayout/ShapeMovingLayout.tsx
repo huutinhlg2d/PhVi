@@ -1,6 +1,6 @@
 import { motion, Transition } from 'framer-motion';
 import { useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import circleShape from '@/assets/shiny-shapes/2.png';
@@ -14,13 +14,16 @@ import { layerStyles, ShapeMovingLayoutComponentProps } from './ShapeMovingLayou
 
 export function ShapeMovingLayout() {
   const [state, setState] = useState(true);
-  const [isActivated, setActivated] = useState(false);
+  const [isActivated, setActivated] = useState(true);
+  const { '*': splats } = useParams();
+
+  console.log(splats);
 
   const commonTransition: Transition = { duration: 1, repeatType: 'loop', ease: 'linear' };
 
   return (
     <ShapeMovingLayoutRoot>
-      <ShapeMovingContainer animate={state ? 'home' : 'portfolio'}>
+      <ShapeMovingContainer animate={splats}>
         <Hexagon
           initial={{
             rotateY: 180,

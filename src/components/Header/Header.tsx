@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { Logo } from '../../common/Logo';
 
 export function Header(props: React.ComponentProps<typeof HeaderRoot>) {
   return (
@@ -31,7 +30,7 @@ const HeaderRoot = styled(motion.header)`
 
   position: fixed;
   top: 0;
-  z-index: 100;
+  z-index: 1000;
 `;
 
 const HeaderBody = styled.div`
