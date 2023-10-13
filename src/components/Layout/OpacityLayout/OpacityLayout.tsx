@@ -15,7 +15,7 @@ export function OpacityLayout({ children, label }: OpacityLayout) {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         initial={{ opacity: 0 }}
-        transition={{ duration: 2.5, ease: 'linear' }}
+        transition={{ duration: 0.5, ease: 'linear' }}
       >
         {children}
       </OpacityLayoutRoot>

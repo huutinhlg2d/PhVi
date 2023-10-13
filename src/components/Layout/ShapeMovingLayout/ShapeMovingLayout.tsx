@@ -1,6 +1,6 @@
 import { motion, Transition, VariantLabels } from 'framer-motion';
 import { useEffect, useMemo } from 'react';
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { useImmer } from 'use-immer';
 
@@ -10,7 +10,7 @@ import hemisphereShape from '@/assets/shiny-shapes/9.png';
 import coneShape from '@/assets/shiny-shapes/10.png';
 import hexagonShape from '@/assets/shiny-shapes/11.png';
 import { Home } from '@/containers/Home';
-import { PageBaseAnimations, ShapeMovingLayoutAnimations, ShapeMovingState } from '@/models/layout/shape-moving';
+import { ShapeMovingLayoutAnimations, ShapeMovingState } from '@/models/layout/shape-moving';
 import { getShapeMovingCurrentState } from '@/utils/layout/shape-moving';
 
 import { LAYERS, layerStyles, ShapeMovingLayoutComponentProps } from './ShapeMovingLayoutItems';
@@ -171,23 +171,41 @@ const shapeAnimations = new ShapeMovingLayoutAnimations<Shapes>({
 
 export type Containers = 'blur';
 
-export type ContainerAnimations = PageBaseAnimations<Containers>
+// export type ContainerAnimations = PageBaseAnimations<Containers>
 
-const containerAnimations: ContainerAnimations = {
+// const containerAnimations: ContainerAnimations = {
+//   home: {
+//     blur: {
+//       width: 1114,
+//       height: 570,
+//     },
+//   },
+//   portfolio: {
+//     blur: {
+//       width: 1114,
+//       height: 422,
+//     },
+//   },
+//   '': { blur: {} },
+// }
+
+const containerAnimations = new ShapeMovingLayoutAnimations<Containers>({
   home: {
     blur: {
       width: 1114,
       height: 570,
+      top: 170,
     },
   },
   portfolio: {
     blur: {
       width: 1114,
       height: 422,
+      top: 156.44,
     },
   },
   '': { blur: {} },
-}
+})
 
 export type ShapeMovingAnimationState = {
   labels: VariantLabels;
@@ -208,9 +226,9 @@ export function ShapeMovingLayout() {
   });
 
   const initialShapeAnimations = useMemo(() => shapeAnimations.page(animationState.state), []);
-  const initialContainerAnimations = useMemo(() => containerAnimations[animationState.state], []);
+  const initialContainerAnimations = useMemo(() => containerAnimations.page(animationState.state), []);
 
-  const commonTransition: Transition = { duration: 1, repeatType: 'loop', ease: 'linear' };
+  const commonTransition: Transition = { duration: 0.5, repeatType: 'loop', ease: 'linear' };
 
   useEffect(() => {
     if (splats) {
@@ -234,7 +252,7 @@ export function ShapeMovingLayout() {
   const renderAllShapes = () => {
     if (initialShapeAnimations) {
       return (
-        <AllShapeContainer variants={{ hidden: { opacity: 0 } }}>
+        <AllShapeContainer>
           <Hexagon
             initial={initialShapeAnimations.hexagon}
             layer={LAYERS.SHAPES_TYPE_1}
@@ -281,7 +299,7 @@ export function ShapeMovingLayout() {
           <div>PORTFOLIO</div>
         );
       default:
-        return <div>DEFAULT</div>;
+        return <Navigate to={'/home'} />;
     }
   };
 
@@ -289,7 +307,7 @@ export function ShapeMovingLayout() {
     <ShapeMovingLayoutRoot>
       <DisplayContainer animate={getAnimationVariantLabels()}>
         {renderAllShapes()}
-        <BlurContainer initial={initialContainerAnimations.blur} layer={LAYERS.BLUR_OVERLAY}></BlurContainer>
+        <BlurContainer initial={initialContainerAnimations.blur} layer={LAYERS.BLUR_OVERLAY} variants={containerAnimations.type('blur')}></BlurContainer>
         <ContentContainer layer={LAYERS.MAIN_CONTENT}>{renderContent()}</ContentContainer>
       </DisplayContainer>
     </ShapeMovingLayoutRoot>
@@ -322,15 +340,13 @@ const Cone = styled(Image).attrs({ src: coneShape })``;
 
 const BlurContainer = styled(motion.div) <ShapeMovingLayoutComponentProps>`
   ${layerStyles}
-  flex-shrink: 0;
   border-radius: 32px;
   border: 1.5px solid #fff;
   background:
     lightgray 50% / cover no-repeat,
     linear-gradient(111deg, rgba(255, 255, 255, 0.25) 6.39%, rgba(255, 255, 255, 0) 53.34%);
-  backdrop-filter: blur(50px) opacity(0);
+  backdrop-filter: blur(50px) opacity(1);
   position: absolute;
-  top: 170px;
   left: 50%;
   transform: translate(-50%, 0);
 `;
@@ -338,13 +354,8 @@ const BlurContainer = styled(motion.div) <ShapeMovingLayoutComponentProps>`
 const DisplayContainer = styled(motion.div)`
   width: 1440px;
   height: 1024px;
-  /* background-color: #00800071; */
-  position: absolute;
+  position: relative;
   top: 0;
-  left: 50%;
-  transform: translate(-50%, 0);
-  z-index: var(--shape-moving-container-index);
-  isolation: isolate;
 `;
 
 const AllShapeContainer = styled(motion.div)`
@@ -353,18 +364,14 @@ const AllShapeContainer = styled(motion.div)`
   background-color: #ff1e0070;
   position: absolute;
   top: 0;
-  left: 50%;
-  transform: translate(-50%, 0);
-  z-index: var(--shape-moving-container-index);
-  isolation: isolate;
 `;
 
 
 const ShapeMovingLayoutRoot = styled.div`
-  --shape-moving-container-index: 200;
   height: 100%;
   width: 100%;
   position: relative;
-  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  /* overflow: hidden; */
 `;
-

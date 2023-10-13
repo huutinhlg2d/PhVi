@@ -15,6 +15,7 @@ const router = createBrowserRouter(
             </OpacityLayout>
           }
         >
+          <Route index></Route>
           <Route path="home"></Route>
           <Route path="portfolio"></Route>
         </Route>
