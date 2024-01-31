@@ -205,7 +205,7 @@ const containerAnimations = new ShapeMovingLayoutAnimations<Containers>({
     },
   },
   '': { blur: {} },
-})
+});
 
 export type ShapeMovingAnimationState = {
   labels: VariantLabels;
@@ -291,13 +291,9 @@ export function ShapeMovingLayout() {
   const renderContent = () => {
     switch (animationState.state) {
       case ShapeMovingState.Home:
-        return (
-          <Home />
-        );
+        return <Home />;
       case ShapeMovingState.Portfolio:
-        return (
-          <div>PORTFOLIO</div>
-        );
+        return <div>PORTFOLIO</div>;
       default:
         return <Navigate to={'/home'} />;
     }
@@ -307,7 +303,11 @@ export function ShapeMovingLayout() {
     <ShapeMovingLayoutRoot>
       <DisplayContainer animate={getAnimationVariantLabels()}>
         {renderAllShapes()}
-        <BlurContainer initial={initialContainerAnimations.blur} layer={LAYERS.BLUR_OVERLAY} variants={containerAnimations.type('blur')}></BlurContainer>
+        <BlurContainer
+          initial={initialContainerAnimations.blur}
+          layer={LAYERS.BLUR_OVERLAY}
+          variants={containerAnimations.type('blur')}
+        ></BlurContainer>
         <ContentContainer layer={LAYERS.MAIN_CONTENT}>{renderContent()}</ContentContainer>
       </DisplayContainer>
     </ShapeMovingLayoutRoot>
@@ -321,7 +321,7 @@ const ContentContainer = styled.div<ShapeMovingLayoutComponentProps>`
   height: 100%;
 `;
 
-const Image = styled(motion.img) <ShapeMovingLayoutComponentProps>`
+const Image = styled(motion.img)<ShapeMovingLayoutComponentProps>`
   ${layerStyles}
   position: absolute;
   background-color: #ffff007a;
@@ -338,7 +338,7 @@ const Cube = styled(Image).attrs({ src: cubeShape })``;
 
 const Cone = styled(Image).attrs({ src: coneShape })``;
 
-const BlurContainer = styled(motion.div) <ShapeMovingLayoutComponentProps>`
+const BlurContainer = styled(motion.div)<ShapeMovingLayoutComponentProps>`
   ${layerStyles}
   border-radius: 32px;
   border: 1.5px solid #fff;
@@ -361,11 +361,10 @@ const DisplayContainer = styled(motion.div)`
 const AllShapeContainer = styled(motion.div)`
   width: 100%;
   height: 100%;
-  background-color: #ff1e0070;
+  background-color: #ffffff88;
   position: absolute;
   top: 0;
 `;
-
 
 const ShapeMovingLayoutRoot = styled.div`
   height: 100%;

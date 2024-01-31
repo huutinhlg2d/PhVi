@@ -1,9 +1,12 @@
 import styled from 'styled-components';
 
+import { HomeTextSlide } from '@/components/TextSlide';
+
 export function Home() {
   return (
     <HomeRoot>
       <HomeContainer>
+        <HomeTextSlide />
       </HomeContainer>
     </HomeRoot>
   );
@@ -27,4 +30,3 @@ const HomeContainer = styled.main`
   width: 1440px;
   height: 1024px;
 `;
-
